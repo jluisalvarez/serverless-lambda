@@ -1,6 +1,7 @@
-console.log('Loading hello world function');
+console.log('Cargando Función Lambda Hello World');
  
 exports.handler = async (event) => {
+    
     let saludo = "Hello";
     let persona = 'Somebody';
     let lugar = 'World';
@@ -10,17 +11,22 @@ exports.handler = async (event) => {
     console.log("request: " + JSON.stringify(event));
     
     if (event.queryStringParameters && event.queryStringParameters.saludo) {
-        console.log("Received name: " + event.queryStringParameters.saludo);
+        console.log("Recibido Saludo: " + event.queryStringParameters.saludo);
         saludo = event.queryStringParameters.saludo;
     }
     
     if (event.queryStringParameters && event.queryStringParameters.persona) {
-        console.log("Received city: " + event.queryStringParameters.persona);
+        console.log("Recibido Persona: " + event.queryStringParameters.persona);
         persona = event.queryStringParameters.persona;
     }
     
+    if (event.queryStringParameters && event.queryStringParameters.lugar) {
+        console.log("Recibido Lugar: " + event.queryStringParameters.lugar);
+        lugar = event.queryStringParameters.lugar;
+    }
+    
     if (event.headers && event.headers['dia']) {
-        console.log("Received day: " + event.headers.dia);
+        console.log("Recibido Dia: " + event.headers.dia);
         dia = event.headers.dia;
     }
     
@@ -30,7 +36,7 @@ exports.handler = async (event) => {
             mes = body.mes;
     }
  
-    let greeting = `${saludo} ${persona}.`;
+    let greeting = `${saludo} ${persona} of ${lugar}.`;
     if (dia) greeting += ` Happy ${dia} of ${mes}!`;
 
     let responseBody = {
